@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Bootstrap Webpage</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+    <!-- Fontawesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+
+    <!-- Top Menu -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="#">Logo</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/404.html">info</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/404.html">api</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="ml-auto">
+                <button type="button" class="btn btn-success"><span id="datetime">loading</span></button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main content here -->
+
+    <div class="container mt-5">
+        <h1>Bug Reporting Form</h1>
+        <form>
+          <div class="mb-3">
+            <label for="bug-title" class="form-label">Bug Title:</label>
+            <input type="text" class="form-control" id="bug-title" name="bug-title" required>
+          </div>
+          <div class="mb-3">
+            <label for="bug-description" class="form-label">Bug Description:</label>
+            <textarea class="form-control" id="bug-description" name="bug-description" rows="5" required></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="contact-info" class="form-label">Contact Information (optional):</label>
+            <input type="text" class="form-control" id="contact-info" name="contact-info">
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+
+    <!-- jQuery and Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script>
+        // Get the form element
+        const form = document.querySelector('form');
+
+        // Add a submit event listener to the form
+        form.addEventListener('submit', (event) => {
+          // Prevent the default form submission
+          event.preventDefault();
+
+          // Get the form data
+          const formData = new FormData(form);
+          const bugData = {
+            title: formData.get('bug-title'),
+            description: formData.get('bug-description'),
+            contactInfo: formData.get('contact-info') || null,
+          };
+
+          // Send the form data as JSON using the fetch API
+          fetch('/bugs', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(bugData)
+          })
+          .then(response => {
+            if (response.ok) {
+              alert('Bug report submitted successfully!');
+              form.reset();
+            } else {
+              throw new Error('Something went wrong!');
+            }
+          })
+          .catch(error => {
+            console.error(error);
+            alert('Error submitting bug report!\nSorry but try manually email to bugs@lishuyu.top');
+          });
+        });
+
+    </script>
+    <!-- Script to show real-time clock -->
+    <script defer>
+        setInterval(function() {
+            var dt = new Date();
+            document.getElementById("datetime").innerHTML = dt.toLocaleTimeString();
+        }, 1000);
+    </script>
+</body>
+</html>

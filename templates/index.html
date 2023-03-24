@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Bootstrap Webpage</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+    <!-- Fontawesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+
+<!-- Top Menu -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+        <a class="navbar-brand" href="#">Logo</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/404.html">info</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/404.html">api</a>
+                </li>
+            </ul>
+        </div>
+        <div class="mx-auto">
+            <button type="button" class="btn btn-success"><span id="datetime">loading</span></button>
+
+        </div>
+    </div>
+</nav>
+
+<!-- Main Content -->
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-sm-12">
+            <h2>课表</h2>
+            <p>目前课程</p>
+            <div class="card w-70">
+                <div class="card-body">
+                    <h5 class="card-title" id="period_car_tittle">Progress Bar</h5>
+                    <p class="card-text" id="period_card_text"></p>
+                    <p class="card-text" id="period_card_text2"></p>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" id="period_progress_bar" style="width: 50%"
+                             aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="card w-70">
+                <div class="card-body">
+                    <h5 class="card-title" id="day_card_tittle">Daily Progress Bar</h5>
+                    <p class="card-text" id="day_card_text"></p>
+                    <p class="card-text" id="day_card_text2"></p>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" id="day_progress_bar" style="width: 50%"
+                             aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="card w-70">
+                <div class="card-body">
+                    <h5 class="card-title" id="week_card_tittle">Daily Progress Bar</h5>
+                    <p class="card-text" id="week_card_text"></p>
+                    <p class="card-text" id="week_card_text_2"></p>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" id="week_progress_bar" style="width: 50%"
+                             aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- jQuery and Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+<script>
+
+    const periodElement = document.getElementById("period_progress_bar");
+    const className = document.getElementById("period_car_tittle");
+    const classText = document.getElementById("period_card_text");
+    const classText2 = document.getElementById("period_card_text2");
+
+    const daily_day_card_text = document.getElementById("day_card_text");
+    const daily_day_card_text2 = document.getElementById("day_card_text2");
+    const daily_progress_bar = document.getElementById("day_progress_bar");
+    const daily_day_card_tittle = document.getElementById("day_card_tittle");
+
+    var totalTimePassed, periodTimeTotal, timeRemaining = 0;
+    var day_total_time_passed, day_total_time, day_remaining_time, seconds_to_next_class = 0;
+
+
+    function updatePeriodTaskProgress() {
+        fetch('/api/school/current/timeprogress')
+            .then(response => response.json())
+            .then(data => {
+                if (data.period !== null) {
+                    className.textContent = data.period;
+                    totalTimePassed = Number(`${data.timePeriodPassed}`);
+                    periodTimeTotal = Number(`${data.timePeriodTotal}`);
+                    timeRemaining = periodTimeTotal - totalTimePassed;
+                    console.log(`Time remaining: ${timeRemaining}`);
+                    let percentage = periodTimeTotal === 0 ? 0 : Math.round(totalTimePassed / periodTimeTotal * 100);
+                    periodElement.style.width = `${percentage}%`;
+                    classText.textContent = `${data.schedule}`;
+                    classText2.textContent = `Complete: ${percentage}%\nTime remaining:${secondsToDhms(timeRemaining)}`;
+                } else {
+                    periodElement.style.width = `0%`;
+                    className.textContent = "No class, you are free now";
+                }
+            })
+
+    }
+
+    function updateDailyTaskProgress() {
+        fetch('/api/school/current/day')
+            .then(response => response.json())
+            .then(data => {
+                if (data.seconds_of_today !== null) {
+                    day_total_time = Number(data.seconds_of_today);
+                    day_total_time_passed = Number(data.seconds_passed_of_today);
+                    day_remaining_time = day_total_time - day_total_time_passed;
+                    let day_percentage = day_total_time === 0 ? 0 : Math.round(day_total_time_passed / day_total_time * 100);
+                    if (day_percentage) {
+                        daily_progress_bar.style.width = `${day_percentage}%`;
+                        daily_day_card_text.textContent = `Complete: ${day_percentage}%\nTime remaining:${secondsToDhms(day_remaining_time)}`;
+                    } else {
+                        daily_progress_bar.style.width = `0%`;
+                        daily_day_card_tittle.textContent = `Today not started`;
+                    }
+                } else {
+                    daily_progress_bar.style.width = `0%`;
+                    daily_day_card_tittle.textContent = `Today not started`;
+                }
+
+                if (data.seconds_to_next_class !== null && data.seconds_to_next_class > 0 && data.seconds_passed_of_today === -1) {
+                    seconds_to_next_class = Number(`${data.seconds_to_next_class}`);
+                    daily_day_card_tittle.textContent = `Today\nin ${secondsToDhms(seconds_to_next_class)}`;
+                    daily_day_card_text.textContent = `${data.next_class}`;
+                }
+            })
+    }
+
+    function updateOfflineTimer() {
+        if (periodTimeTotal) {
+            totalTimePassed += 1;
+            timeRemaining = periodTimeTotal - totalTimePassed;
+            if (timeRemaining <= 0){
+                updatePeriodTaskProgress();
+            }
+            let percentage = periodTimeTotal === 0 ? 0 : Math.round(totalTimePassed / periodTimeTotal * 100);
+            periodElement.style.width = `${percentage}%`;
+            classText2.textContent = `Complete: ${percentage}%\nTime remaining:${secondsToDhms(timeRemaining)}`;
+        }
+        if (day_total_time_passed >= 0) {
+            day_total_time_passed += 1;
+        }
+        if (seconds_to_next_class >= 0) {
+            seconds_to_next_class -= 1;
+            day_remaining_time = day_total_time - day_total_time_passed;
+            if (-10 <= seconds_to_next_class <= 0) {
+                updateDailyTaskProgress();
+            }
+            if (seconds_to_next_class > 0)
+                daily_day_card_tittle.textContent = `Today\nin ${secondsToDhms(seconds_to_next_class)}`;
+            let day_percentage = day_total_time === 0 ? 0 : Math.round(day_total_time_passed / day_total_time * 100);
+            if (day_percentage) {
+                daily_progress_bar.style.width = `${day_percentage}%`;
+                daily_day_card_text.textContent = `Complete: ${day_percentage}%\nTime remaining:${secondsToDhms(day_remaining_time)}`;
+            }
+        }
+    }
+
+    function secondsToDhms(seconds) {
+        seconds = Number(seconds);
+        var d = Math.floor(seconds / (3600*24));
+        var h = Math.floor(seconds % (3600*24) / 3600);
+        var m = Math.floor(seconds % 3600 / 60);
+        var s = Math.floor(seconds % 60);
+
+        var dDisplay = d > 0 ? d + (d == 1 ? " day, " : " days, ") : "";
+        var hDisplay = h > 0 ? h + (h == 1 ? " hour, " : " hours, ") : "";
+        var mDisplay = m > 0 ? m + (m == 1 ? " minute, " : " minutes, ") : "";
+        var sDisplay = s > 0 ? s + (s == 1 ? " second" : " seconds") : "";
+        return dDisplay + hDisplay + mDisplay + sDisplay;
+    }
+
+    updatePeriodTaskProgress()
+    updateDailyTaskProgress()
+
+    setInterval(updateOfflineTimer, 1000);
+    setInterval(updateDailyTaskProgress, 60*1000*5);
+    setInterval(updatePeriodTaskProgress, 60*1000);
+
+    /*
+    document.addEventListener("DOMContentLoaded", function () {
+
+    });
+     */
+
+</script>
+
+<!-- Script to show real-time clock -->
+<script defer>
+    setInterval(function () {
+        var dt = new Date();
+        document.getElementById("datetime").innerHTML = dt.toLocaleTimeString();
+    }, 1000);
+</script>
+
+</body>
+</html>

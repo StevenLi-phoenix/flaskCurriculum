@@ -1,0 +1,97 @@
+# The following lines are desirable for IPv6 capable hosts
+::1	localhost	ip6-localhost	ip6-loopback
+ff02::1	ip6-allnodes
+ff02::2	ip6-allrouters
+127.0.1.1	s02g07017.cloud.em160.tbsite.net	s02g07017
+
+172.16.82.60 Stevenli  Stevenli
+
+# GitHub Start
+185.199.109.133 gist.githubusercontent.com
+185.199.110.133 gist.githubusercontent.com
+185.199.108.133 gist.githubusercontent.com
+185.199.111.133 gist.githubusercontent.com
+185.199.110.133 avatars4.githubusercontent.com
+185.199.109.133 avatars4.githubusercontent.com
+185.199.111.133 avatars4.githubusercontent.com
+185.199.108.133 avatars4.githubusercontent.com
+185.199.108.133 avatars5.githubusercontent.com
+185.199.109.133 avatars5.githubusercontent.com
+185.199.110.133 avatars5.githubusercontent.com
+185.199.111.133 avatars5.githubusercontent.com
+185.199.108.133 cloud.githubusercontent.com
+185.199.111.133 cloud.githubusercontent.com
+185.199.109.133 cloud.githubusercontent.com
+185.199.110.133 cloud.githubusercontent.com
+185.199.109.133 avatars6.githubusercontent.com
+185.199.111.133 avatars6.githubusercontent.com
+185.199.108.133 avatars6.githubusercontent.com
+185.199.110.133 avatars6.githubusercontent.com
+185.199.110.133 camo.githubusercontent.com
+185.199.111.133 camo.githubusercontent.com
+185.199.108.133 camo.githubusercontent.com
+185.199.109.133 camo.githubusercontent.com
+185.199.108.133 avatars3.githubusercontent.com
+185.199.109.133 avatars3.githubusercontent.com
+185.199.110.133 avatars3.githubusercontent.com
+185.199.111.133 avatars3.githubusercontent.com
+185.199.111.133 avatars8.githubusercontent.com
+185.199.108.133 avatars8.githubusercontent.com
+185.199.110.133 avatars8.githubusercontent.com
+185.199.109.133 avatars8.githubusercontent.com
+185.199.108.133 raw.githubusercontent.com
+185.199.109.133 raw.githubusercontent.com
+185.199.111.133 raw.githubusercontent.com
+185.199.110.133 raw.githubusercontent.com
+203.98.7.65 gist.github.com
+185.199.110.133 avatars1.githubusercontent.com
+185.199.108.133 avatars1.githubusercontent.com
+185.199.111.133 avatars1.githubusercontent.com
+185.199.109.133 avatars1.githubusercontent.com
+20.205.243.168 api.github.com
+185.199.108.133 user-images.githubusercontent.com
+185.199.109.133 user-images.githubusercontent.com
+185.199.110.133 user-images.githubusercontent.com
+185.199.111.133 user-images.githubusercontent.com
+20.205.243.165 codeload.github.com
+185.199.108.133 avatars0.githubusercontent.com
+185.199.109.133 avatars0.githubusercontent.com
+185.199.110.133 avatars0.githubusercontent.com
+185.199.111.133 avatars0.githubusercontent.com
+github.github.io training.github.com
+185.199.109.153 training.github.com
+185.199.111.153 training.github.com
+185.199.108.153 training.github.com
+185.199.110.153 training.github.com
+20.205.243.166 github.com
+codeload. nodeload.github.com
+20.205.243.165 nodeload.github.com
+185.199.110.133 raw.github.com
+185.199.109.133 raw.github.com
+185.199.111.133 raw.github.com
+185.199.108.133 raw.github.com
+github.github.io assets-cdn.github.com
+185.199.108.153 assets-cdn.github.com
+185.199.109.153 assets-cdn.github.com
+185.199.110.153 assets-cdn.github.com
+185.199.111.153 assets-cdn.github.com
+185.199.108.133 avatars2.githubusercontent.com
+185.199.109.133 avatars2.githubusercontent.com
+185.199.110.133 avatars2.githubusercontent.com
+185.199.111.133 avatars2.githubusercontent.com
+redirect. help.github.com
+140.82.112.17 help.github.com
+185.199.108.133 avatars7.githubusercontent.com
+185.199.109.133 avatars7.githubusercontent.com
+185.199.110.133 avatars7.githubusercontent.com
+185.199.111.133 avatars7.githubusercontent.com
+github.github.io documentcloud.github.com
+185.199.108.153 documentcloud.github.com
+185.199.109.153 documentcloud.github.com
+185.199.110.153 documentcloud.github.com
+185.199.111.153 documentcloud.github.com
+# GitHub End
+
+127.0.0.1 localhost  localhost
+
+
